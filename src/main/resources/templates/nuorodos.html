@@ -48,7 +48,7 @@
 				, url_delete_rec
 				, fields_edit
 				, field_name
-				,  fields_ed_types
+				, fields_ed_types
 			
 			) {
 				params = {
@@ -108,7 +108,7 @@
 				}
 																			// alert( options );
 																			
-				crud.prototype.htmDialogoEditFields ( i_am, [ 'kategorijos_id', 'tipas', 'flags', 'aprasymas' ] );																			
+				crud.prototype.htmDialogoEditFields ( i_am, [ 'pav', 'link' ] );																			
 			
 				i_am.params.res_str += 	'<label for="id_prod">Kategorija</label>' +
 						'<select type="text" name="kategorijos_id" id="kategorijos_id" class="text ui-widget-content ui-corner-all">' +
@@ -127,16 +127,14 @@
 							'<option value="reikia_analizuoti">reikia_analizuoti</option>' +
 							'<option value="fragmentai">fragmentai</option>' +
 							'<option value="kita">kita</option>' +
-						'</select>';				
-
+						'</select>';
+						
+				crud.prototype.htmDialogoEditFields ( i_am, [ 'rating' ] );																									
 
 				i_am.params.res_str += 	'<label for="flags">Aprašymas</label>' +
 						'<textarea type="text" name="aprasymas" id="aprasymas" class="text ui-widget-content ui-corner-all">' +
 						'</textarea>';	
-
 			}
-				
-
 /*				
 			crudPatiekaloProduktu.prototype.addColumns = function () {
 			
@@ -159,7 +157,7 @@
 					, 'flags'	
 					, 'aprasymas'
 				]
-				, [  'pavadinimas', 'link', 'kategorijos_id', 'tipas', 'rating', 'flags', 'aprasymas' ]
+				, [  'pavadinimas', 'link', 'kate-<br>gorijos<br>id', 'tipas', 'vertinimas', 'požymiai', 'aprašymas' ]
 				, 'http://localhost:8080/ajax/lst-nuorodos'
 				, ''				
 				, 'nuorodos'
@@ -179,7 +177,7 @@
 					, 'aprasymas'
 				]
 				, 'pav'
-				, 'text', 'text', 'select', 'select', 'text'
+				,  [ 'text', 'text', 'select', 'select', 'text', 'select', 'textarea' ]
 			);
 
 			crud_nuorodos.getKategorijos();
