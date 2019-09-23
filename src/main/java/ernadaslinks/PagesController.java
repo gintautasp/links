@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PagesController {
 	
+	
     @RequestMapping("/")
-    public String greeting() {
+    public String menu( Model model ) {
+      	
+        model.addAttribute("lst_menu", Menu.values() );    	
         return "index";
     }	
 	
@@ -23,6 +26,7 @@ public class PagesController {
 
     @GetMapping("/nuorodos")
     public String nuorodos() {
+
         return "nuorodos";
     }    
 }
