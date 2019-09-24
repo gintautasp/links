@@ -1,6 +1,7 @@
 package ernadaslinks;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -27,6 +28,10 @@ public class Nuorodos {
 	private String flags;
 	
 	private String aprasymas;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "nuorodos_zymos", joinColumns = @JoinColumn(name = "nuorodos_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "zymos_id", referencedColumnName = "id"))  
+	private Set<Zymos> zymos;	
     
     @ManyToOne
     @JoinColumn(insertable=false, updatable=false)
@@ -111,4 +116,12 @@ public class Nuorodos {
 	public void setKategorijos(Kategorijos kategorijos) {
 		this.kategorijos = kategorijos;
 	}
+	
+	public Set<Zymos> getZymos() {
+		return zymos;
+	}
+
+	public void setZymos(Set<Zymos> zymos) {
+		this.zymos = zymos;
+	}	
 }

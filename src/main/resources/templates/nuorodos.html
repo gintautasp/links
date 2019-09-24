@@ -71,9 +71,9 @@
 				crud.call ( this, params );	// objektu surišimas pagal https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype                (OS/eilute 1)  ..
 				
 				this.kategorijos = [];
+				this.zymos = [];
 				
 				this.getKategorijos = function() {
-				
 																			// alert( 'run getProduktai' );
 					var i_am = this;
 					
@@ -81,11 +81,24 @@
 							url: "http://localhost:8080/ajax/lst-kategorijos" 
 					}).done(
 					
-						function( data ) {
+						function( data_kategorijos ) {
 						
-							i_am.kategorijos = data;
-							i_am.initEmpty();
-							i_am.refreshData();
+							i_am.kategorijos = data_kategorijos;
+							
+							$.ajax({
+							
+								url: "http://localhost:8080/ajax/lst-zymos"
+												
+							}).done( 
+							
+								function ( data_zymos ) {
+								
+									i_am.zymos = data_zymos;
+							
+									i_am.initEmpty();
+									i_am.refreshData();
+								}
+							);
 						}
 					);
 				}
@@ -129,9 +142,18 @@
 							'<option value="kita">kita</option>' +
 						'</select>';
 						
-				crud.prototype.htmDialogoEditFields ( i_am, [ 'rating' ] );																									
+				crud.prototype.htmDialogoEditFields ( i_am, [ 'rating' ] );	
 
-				i_am.params.res_str += 	'<label for="flags">Aprašymas</label>' +
+				i_am.params.res_str += '<label for="zymos">Žymos</label>';
+				
+				for ( i=0; i< i_am.zymos.length; i++) {
+				
+					i_am.params.res_str += '<input type="checkbox" name="zymos" value="' +  i_am.zymos[ i ].id + '" style="display: inline-block"> - ' +  i_am.zymos[ i ].pav;
+				}
+				 '<label for="zymosadd">Naujos žymos</label>';
+				i_am.params.res_str += '<input type="text" name="zymosadd" value="">';
+
+				i_am.params.res_str += '<label for="flags">Aprašymas</label>' +
 						'<textarea type="text" name="aprasymas" id="aprasymas" class="text ui-widget-content ui-corner-all">' +
 						'</textarea>';	
 			}
@@ -177,7 +199,7 @@
 					, 'aprasymas'
 				]
 				, 'pav'
-				,  [ 'text', 'text', 'select', 'select', 'text', 'select', 'textarea' ]
+				,  [ 'text', 'text', 'select', 'radio', 'text', 'select', 'textarea' ]
 			);
 
 			crud_nuorodos.getKategorijos();

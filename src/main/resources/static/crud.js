@@ -181,7 +181,9 @@
 					
 						$( 'input[name=' + i_am.params.fields[ k ] + ']' ).each ( function() {
 							
-							$( this ).prop ( 'selected', $( this ).val() == field_val );
+																					// alert ( $( this ).val() + '==' + field_val + ': ' + ( $( this ).val() == field_val ) );
+							
+							$( this ).prop ( 'checked', $( this ).val() == field_val );
 						});
 						
 						break;
@@ -309,7 +311,7 @@
 	
 	
 	
-	crud.prototype.htmlDialogoEditFieldLabel = function ( i_am, k) {
+	crud.prototype.htmlDialogoEditFieldLabel = function ( i_am, k ) {
 		
 			return '<label for="' + i_am.params.fields[ k ] + '">' + 
 					i_am.params.fields_names [ k ].replace( '-<br>', '' ).replace ( '<br>', ' ' ).replace( '_', '' ) + 
@@ -332,7 +334,7 @@
 			
 				i_am.params.res_str += 
 				
-					i_am.htmlDialogoEditFieldLabel( i_am, k ) +
+					i_am.htmlDialogoEditFieldLabel ( i_am, k ) +
 
 					'<input type="text" name="' + i_am.params.fields[ k ] +
 									'" id="' + i_am.params.fields[ k ] + 
@@ -385,10 +387,35 @@
 		
 		for ( k=0; k < i_am.params.ed_fields.length; k++ ) {
 			
-			params_str += '&' + i_am.params.ed_fields [ k ] + '=' + $( 'input[name=' + + i_am.params.ed_fields [ k ] + ']' ).val();
-		}
-																																// alert (  'saving'  + i_am.params.url_save_rec + params_str );
+			params_str += '&' + i_am.params.ed_fields [ k ] + '='; // + $( 'input[name=' + + i_am.params.ed_fields [ k ] + ']' ).val();
 			
+			switch ( i_am.params.ed_types [ k ] ) {
+				
+				case 'textarea':
+				
+					params_str += $( '#' +  i_am.params.ed_fields[ k ] ).val ();	
+																									// alert ( $( '#' +  i_am.params.ed_fields[ k ] ).val () ); 
+					break;
+				
+				case 'radio':
+				
+					 $( 'input[name=' + i_am.params.ed_fields[ k ] + ']' ).each ( function() {
+						
+						
+						if ( $( this ).prop ( 'checked' ) ) {
+						
+							params_str +=  $( this ).val();
+						}
+					});
+					
+					break;
+					
+				default:
+																										// alert (  i_am.params.fields [ k ]  + ': ' + field_val );
+					params_str += $( '#' +  i_am.params.fields[ k ]  ).val ();
+			}
+		}
+																							alert (  'saving'  + i_am.params.url_save_rec + params_str );
 		$.ajax(
 			{
 				url: i_am.params.url_save_rec + params_str

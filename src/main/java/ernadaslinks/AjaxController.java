@@ -27,6 +27,9 @@ public class AjaxController {
 	@Autowired
 	private NuorodosRepository nuorodosRepository; 	
 	
+	@Autowired
+	private ZymosRepository zymosRepository; 	
+	
 	@GetMapping(path="/saugoti-kategorija") // Map ONLY GET Requests
 	public @ResponseBody String saugotiTiekeja (@RequestParam Integer id 
 			, @RequestParam String pav
@@ -99,7 +102,8 @@ public class AjaxController {
 			, @RequestParam Integer rating 
 			, @RequestParam String flags	
 			, @RequestParam String aprasymas
-// 			, @RequestParam String zymos
+ 			, @RequestParam String zymos			
+ 			, @RequestParam String zymosadd
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -157,6 +161,12 @@ public class AjaxController {
 	public @ResponseBody Iterable<Nuorodos> getAllNuorodos() {
 		// This returns a JSON or XML with the users
 		return nuorodosRepository.findAll();
+	}	
+	
+	@GetMapping(path="/lst-zymos")
+	public @ResponseBody Iterable<Zymos> getAllZymos() {
+		// This returns a JSON or XML with the users
+		return zymosRepository.findAll();
 	}	
 	
 }
