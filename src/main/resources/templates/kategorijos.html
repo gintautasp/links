@@ -30,7 +30,15 @@
 	    </script>
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
 	    <script src="crud.js"></script>
-	    <script>
+
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		    var rusys = /*[[${rusis_kat.size()}]]*/ 'Sebastian';
+
+
+		/*]]>*/
+    
 		$( document ).ready ( function() {
 
 			params = {
@@ -60,6 +68,11 @@
 </head>
 <body>
 	<div id="kategorijos">
+	    <nav>
+		<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+	    </nav>	
+	    
+	
 	</div>
 </body>
 </html>

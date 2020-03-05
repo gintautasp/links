@@ -7,8 +7,8 @@
 </head>
 <body>
     <div id="page">
-    <nav th:each="menu_item : ${lst_menu}">
-	<a th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+    <nav>
+	<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
     </nav>
     </div>
 </body>
